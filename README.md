@@ -117,7 +117,6 @@ LockScreenBatterySaver/
 5. Instala el módulo desde Magisk Manager y reinicia.
 6. Una vez reiniciado, la app se instalará como privilegio del sistema y el ahorro automático estará funcionando.
 
-Para instrucciones detalladas, revisa `docs/INSTALLATION.md`.
 
 ***
 
