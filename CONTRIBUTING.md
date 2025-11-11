@@ -1,36 +1,42 @@
+# Contribuciones
+
 ¡Gracias por tu interés en contribuir a LockScreen Battery Saver! Este proyecto está abierto a mejoras, correcciones y nuevas funcionalidades.
 
-Pasos para contribuir
-Haz un fork del repositorio en GitHub.
+## Pasos para contribuir
 
-Crea una rama nueva con un nombre descriptivo:
+1. Haz un fork del repositorio en GitHub.
 
-text
-git checkout -b feature/tu-mejora
-Realiza tus cambios y haz commits claros y concisos.
+2. Crea una rama nueva con un nombre descriptivo:
 
-Verifica que todo funcione y ejecuta los scripts de test.
+  git checkout -b feature/tu-mejora
 
-Completa la documentación de tu cambio si aplica.
+  
+3. Realiza tus cambios y haz commits claros y concisos.
 
-Abre un Pull Request en el repositorio original, explicando los cambios y su motivación.
+4. Verifica que todo funcione y ejecuta los scripts de test.
 
-Reglas y recomendaciones
-Detalla el propósito y alcance de tu trabajo en el PR.
+5. Completa la documentación de tu cambio si aplica.
 
-Respeta la estructura de carpetas y la lógica modular del proyecto.
+6. Abre un Pull Request en el repositorio original, explicando los cambios y su motivación.
 
-Si añades dependencias, justifica su necesidad.
+## Reglas y recomendaciones
 
-Revisa y sigue el código de conducta si el repositorio lo tiene.
+- Detalla el propósito y alcance de tu trabajo en el Pull Request.
 
-Tu aporte puede aparecer en el changelog y en las futuras versiones públicas.
+- Respeta la estructura de carpetas y la lógica modular del proyecto.
 
-Contacto y comunidad
-Portafolio personal: portfolio.pesoz.i234.me
+- Si añades dependencias, justifica su necesidad.
 
-LinkedIn: Ivan Jonas
+- Revisa y sigue el código de conducta si el repositorio lo tiene.
 
-Si tienes dudas, sugiere cambios o solicita revisión, contacta por LinkedIn o abre un issue en GitHub.
+- Tu aporte puede aparecer en el changelog y en futuras versiones públicas.
+
+## Contacto y comunidad
+
+- Portafolio personal: [portfolio.pesoz.i234.me](https://portfolio.pesoz.i234.me)
+
+- LinkedIn: [Ivan Jonas](https://www.linkedin.com/in/ivanjonasfc/)
+
+Si tienes dudas, sugiere cambios o solicitas revisión, contacta por LinkedIn o abre un issue en GitHub.
 
 ¡Esperamos tus mejoras y nuevas ideas!
