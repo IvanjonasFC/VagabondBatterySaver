@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FAFAFA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="⚡ LockScreen Battery Saver"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado del Servicio"
+            android:textSize="16sp"
+            android:textColor="#757575"
+            android:layout_marginBottom="12dp"/>
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🟢 ACTIVO"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#4CAF50"
+            android:layout_marginBottom="24dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:elevation="4dp"
+            android:padding="20dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📊 Estado del Sistema"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/statusTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cargando información del sistema..."
+                android:textSize="14sp"
+                android:fontFamily="monospace"
+                android:textColor="#424242"
+                android:lineSpacingExtra="4dp"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="✅ El sistema está monitoreando el bloqueo de pantalla"
+            android:textSize="14sp"
+            android:textColor="#757575"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"
+            android:padding="16dp"
+            android:background="#E8F5E9"/>
+
+        <Button
+            android:id="@+id/settingsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⚙️ Configuración"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"/>
+
+        <Button
+            android:id="@+id/statsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📊 Estadísticas"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:padding="16dp"/>
+
+        <Button
+            android:id="@+id/viewLogsButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="📋 Ver Logs del Script"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ℹ️ Activación automática al bloquear pantalla\n\nEl script funciona de forma autónoma sin necesidad de tener la app abierta."
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColor="#9E9E9E"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+</ScrollView>

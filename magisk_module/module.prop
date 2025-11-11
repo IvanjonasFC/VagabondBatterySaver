@@ -1,0 +1,9 @@
+id=lockscreen_battery_saver
+name=LockScreen Battery Saver
+version=v2.0
+versionCode=10
+author=IvanjonasFC 
+description=Activacion automatica de Battery Saver y Gobernador en Powersave con protecciones anti-bootloop al bloquear el dispositivo y tener mejor duracion de la bateria sin comprometer nada
+support=https://github.com/IvanjonasFC/LockScreenBatterySaver
+minMagisk=28000
+minApi=35

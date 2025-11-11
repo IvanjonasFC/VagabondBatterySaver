@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.batterysaver">
+
+    <!-- Permisos necesarios -->
+    <uses-permission android:name="android.permission.DEVICE_POWER"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions"/>
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Battery Saver"
+        android:theme="@android:style/Theme.Material.Light">
+
+        <!-- Activity Principal -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity de Logs -->
+        <activity
+            android:name=".LogViewerActivity"
+            android:exported="false"
+            android:label="Visor de Logs"
+            android:parentActivityName=".MainActivity"/>
+
+        <!-- Activity de Configuración -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false"
+            android:label="Configuración"
+            android:parentActivityName=".MainActivity"/>
+
+        <!-- Activity de Estadísticas -->
+        <activity
+            android:name=".StatsActivity"
+            android:exported="false"
+            android:label="Estadísticas"
+            android:parentActivityName=".MainActivity"/>
+
+    </application>
+</manifest>
