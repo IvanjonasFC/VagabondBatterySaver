@@ -1,146 +1,144 @@
-LockScreen Battery Saver
-Sistema avanzado para dispositivos Android rooteados que activa automáticamente el modo Battery Saver al bloquear la pantalla y gestiona los governors de la CPU, optimizando al máximo el consumo en standby.
+# LockScreen Battery Saver
 
-Tabla de Contenidos
-Descripción General
+Sistema avanzado para dispositivos Android rooteados que activa automáticamente el modo Battery Saver al bloquear la pantalla y gestiona los governors de la CPU para maximizar el ahorro de energía en standby.
 
-Características Principales
+***
 
-Arquitectura del Sistema
+## Tabla de Contenidos
+- [Descripción General](#descripcin-general)
+- [Características Principales](#caracter3sticas-principales)
+- [Arquitectura del Sistema](#arquitectura-del-sistema)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Requisitos](#requisitos)
+- [Instalación](#instalaci1n)
+- [Uso](#uso)
+- [Solución de Problemas](#soluci3n-de-problemas)
+- [Contribuciones](#contribuciones)
+- [Licencia](#licencia)
+- [Contacto](#contacto)
 
-Estructura del Proyecto
+***
 
-Requisitos
+## Descripción General
+LockScreen Battery Saver está diseñado para superar las restricciones de Android 14 y versiones superiores, permitiendo la activación automática del modo Battery Saver y la gestión del perfil del CPU governor al bloquear la pantalla, sin necesidad de intervención manual. El sistema es idóneo para ROMs personalizadas y dispositivos que cuenten con acceso root y Magisk.
 
-Instalación
+***
 
-Uso
+## Características Principales
+- Activación automática de Battery Saver al bloquear la pantalla
+- Cambio dinámico entre governors de CPU: `powersave` e `interactive`
+- Integración completa con Magisk mediante un módulo dedicado
+- App instalada como aplicación de sistema (priv-app) para control y revisión de logs
+- Compatible con Android 14 y superior
+- Proceso de instalación seguro usando 7-Zip y PowerShell
+- Logs accesibles para el usuario desde la app
 
-Solución de Problemas
+***
 
-Contribuciones
+## Arquitectura del Sistema
+El funcionamiento se apoya en una arquitectura modular compuesta por tres partes bien diferenciadas:
 
-Licencia
+1. **Módulo Magisk**
+   - Instala la app como `priv-app`
+   - Aplica permisos especiales mediante XML de privilegios
+   - Ejecuta scripts automáticos al iniciar el sistema
+2. **App Privilegiada**
+   - Permite revisión de logs y personalización de parámetros
+   - Controla el modo Battery Saver a nivel de sistema gracias a permisos elevados
+3. **Scripts de Automatización**
+   - Detectan el estado de pantalla (bloqueada/desbloqueada)
+   - Cambian el governor y activan/desactivan Battery Saver
+   - Generan y mantienen logs accesibles
 
-Contacto
-
-Descripción General
-LockScreen Battery Saver supera las limitaciones de Android 14+ permitiendo activar el modo Battery Saver y cambiar el perfil del CPU governor desde la pantalla de bloqueo, todo de forma automática y sin intervención manual. Está diseñado para ROMs personalizadas y sistemas con root y Magisk.
-
-Características Principales
-Activación automática de Battery Saver al bloquear la pantalla.
-
-Cambio dinámico de CPU governor (powersave/interactive).
-
-Integración mediante módulo Magisk.
-
-App instalada como privilegio del sistema para control y logs.
-
-Compatible con Android 14 y superior.
-
-Instalación segura mediante 7-Zip y PowerShell.
-
-Sistema de logs consultables desde la app.
-
-Arquitectura del Sistema
-El proyecto consta de tres capas integradas:
-
-Módulo Magisk: Instala la app como priv-app, aplica permisos privilegiados y ejecuta scripts automáticos.
-
-App Privilegiada: Permite revisar logs, elegir parámetros y controla directamente el modo Battery Saver mediante llamadas a PowerManager.
-
-Scripts de Automatización: Detectan el estado de la pantalla y cambian el governor y el modo Battery Saver según corresponda, generando logs para supervisión.
-
-text
+**Estructura resumida del proyecto:**
+```text
 LockScreenBatterySaver/
- ├── magisk_module/
- │    ├── system/priv-app/BatterySaverToggle/BatterySaverToggle.apk
- │    ├── system/etc/permissions/privapp-permissions-batterysaver.xml
- │    └── service.d/govbattery.sh
- ├── android_app/
- │    └── (tu proyecto Android Studio completo)
- └── docs/
-      ├── INSTALLATION.md
-      ├── ARCHITECTURE.md
-      └── TROUBLESHOOTING.md
-Estructura del Proyecto
-Consulta la sección anterior para ver la organización de carpetas y archivos. Así podrás ubicar rápidamente scripts, documentación y archivos clave.
+  magisk_module/
+  system/priv-app/BatterySaverToggle/BatterySaverToggle.apk
+  system/etc/permissions/privapp-permissions-batterysaver.xml
+  service.d/govbattery.sh
+  android_app/
+  (proyecto completo de Android Studio)
+  docs/
+     INSTALLATION.md
+     ARCHITECTURE.md
+     TROUBLESHOOTING.md
+```
 
-Requisitos
-Android 14 o superior
+***
 
-Dispositivo con root y Magisk v28+
+## Estructura del Proyecto
+Consulta el diagrama anterior para localizar rápidamente los componentes principales: scripts, app, documentación y archivos esenciales del sistema.
 
-Android Studio para compilar la app
+***
 
-7-Zip instalado
+## Requisitos
+- Android 14 o superior
+- Dispositivo rooteado con Magisk v28+
+- Android Studio instalado para compilar la app
+- 7-Zip instalado en el sistema
+- PowerShell y drivers ADB instalados
 
-PowerShell y drivers ADB
+***
 
-Instalación (Resumen)
-Compila tu app con Android Studio y copia el APK a:
-magisk_module/system/priv-app/BatterySaverToggle/BatterySaverToggle.apk
+## Instalación (Resumen)
+1. Compila la app con Android Studio y copia el archivo APK a:
+   - `magisk_module/system/priv-app/BatterySaverToggle/BatterySaverToggle.apk`
+2. Verifica la presencia de los archivos de permisos y scripts dentro del módulo.
+3. Empaqueta el módulo usando PowerShell y 7-Zip:
+   ```powershell
+   7z a -tzip ../LockScreenBatterySaver-magisk.zip *
+   ```
+4. Transfiere el archivo ZIP al teléfono mediante ADB:
+   ```
+   adb push ../LockScreenBatterySaver-magisk.zip /sdcard/
+   ```
+5. Instala el módulo desde Magisk Manager y reinicia.
+6. Una vez reiniciado, la app se instalará como privilegio del sistema y el ahorro automático estará funcionando.
 
-Verifica los archivos de permisos y scripts están en el módulo.
+Para instrucciones detalladas, revisa `docs/INSTALLATION.md`.
 
-Empaqueta el módulo utilizando PowerShell y 7-Zip:
+***
 
-powershell
-7z a -tzip ../LockScreenBatterySaver-magisk.zip *
-Transfiere el ZIP al móvil con ADB:
+## Uso
+- Al instalar y reiniciar, el sistema activa el modo Battery Saver y el governor `powersave` automáticamente al bloquear la pantalla, y vuelve al modo `interactive` al desbloquear.
+- Abre la app para revisar logs y ajustar parámetros de configuración.
+- Puedes monitorizar los logs vía terminal:
+  ```
+  adb shell tail -f /data/adb/service.d/govbattery.log
+  ```
 
-text
-adb push ../LockScreenBatterySaver-magisk.zip /sdcard/
-Instala desde Magisk Manager y reinicia.
+***
 
-La app aparecerá como privilegiada y el sistema se activará automáticamente.
+## Solución de Problemas
+Dirígete a `docs/TROUBLESHOOTING.md` si enfrentas:
+- La app no aparece tras instalar el módulo
+- Permisos insuficientes para modificar el governor o activar Battery Saver
+- Errores al empaquetar o instalar el módulo Magisk
+- Incompatibilidades con ciertas ROMs personalizadas
 
-Para instalación detallada, consulta docs/INSTALLATION.md.
+***
 
-Uso
-Tras instalar y reiniciar, el sistema activará el Battery Saver y el governor powersave automáticamente al bloquear la pantalla, y revertirá al interactive al desbloquear.
+## Contribuciones
+Tu colaboración es bienvenida. Para contribuir, sigue estos pasos:
+1. Realiza un fork del repositorio
+2. Crea una rama propia para tu aporte
+3. Documenta claramente tus cambios y resultados
+4. Envía un Pull Request con una descripción completa
 
-Accede a la app instalada para revisar logs y configurar parámetros.
+Consulta la [guía de contribución](CONTRIBUTING.md) para más detalles.
 
-Monitorea logs con:
+Portfolio: [portfolio.pesoz.i234.me](https://portfolio.pesoz.i234.me)  
+LinkedIn: [Ivan Jonas](https://www.linkedin.com/in/ivanjonasfc/)
 
-text
-adb shell tail -f /data/adb/service.d/govbattery.log
-Solución de Problemas
-Revisa docs/TROUBLESHOOTING.md para problemas como:
+***
 
-La app no aparece
+## Licencia
+Este proyecto está bajo licencia MIT. Para más detalles, consulta el archivo `LICENSE`.
 
-Permisos insuficientes para governor/battery saver
+***
 
-Error al empaquetar o instalar el módulo
-
-Problemas con ROMs personalizadas o rutas
-
-Contribuciones
-Aporta mejoras siguiendo la guía:
-
-Haz un fork del repositorio
-
-Crea tu rama de trabajo
-
-Documenta tus cambios y pruebas
-
-Haz PRs claros y concisos
-
-Guía completa de contribución
-
-Portfolio: portfolio.pesoz.i234.me
-LinkedIn: Ivan Jonas
-
-Licencia
-MIT License. Consúltala en el archivo LICENSE.
-
-Contacto
-¿Preguntas, dudas o feedback?
-
-Crea un issue en GitHub.
-
-Contacta por LinkedIn: Ivan Jonas
-
-Portafolio: portfolio.pesoz.i234.me
+## Contacto
+- Puedes crear un issue en GitHub para soporte o sugerencias.
+- Contacto profesional por LinkedIn: [Ivan Jonas](https://www.linkedin.com/in/ivanjonasfc/)
+- Portafolio: [portfolio.pesoz.i234.me](https://portfolio.pesoz.i234.me)
