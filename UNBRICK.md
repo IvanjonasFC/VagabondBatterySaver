@@ -1,67 +1,79 @@
-Recuperación en caso de Brickeo
-Atención: Estas instrucciones son una guía general. Asumen que tienes experiencia básica en recuperación de Android, acceso a un ordenador y que tu dispositivo permite desbloqueo o reinstalación por Fastboot o Recovery. Cada modelo puede variar: si tienes dudas, consulta foros o documentación de tu dispositivo.
+# Recuperación en caso de Brickeo
 
-1. Identifica el tipo de brick
-Bootloop/Soft-brick: El móvil enciende, pero queda reiniciando o atascado en el logo. Suele permitir entrar a fastboot o recovery.
+> **Atención:** Estas instrucciones son una guía general. Asumen que tienes experiencia básica en recuperación de Android, acceso a un ordenador y que tu dispositivo permite desbloqueo o reinstalación por Fastboot o Recovery. Cada modelo puede variar: si tienes dudas, consulta foros o documentación de tu dispositivo.
 
-Hard-brick: El dispositivo no responde, no enciende ni accede a fastboot/recovery. En este caso, busca soporte específico del fabricante o comunidades como XDA.
+## 1. Identifica el tipo de brick
 
-2. Intenta acceder a Recovery o Fastboot
-Apaga el dispositivo completamente.
+- **Bootloop/Soft-brick:** El móvil enciende, pero queda reiniciando o atascado en el logo. Suele permitir entrar a fastboot o recovery.
 
-Mantén pulsadas las teclas específicas de tu modelo (normalmente Vol- + Power para Fastboot, Vol+ + Power para Recovery) hasta que aparezca el menú correspondiente.
+- **Hard-brick:** El dispositivo no responde, no enciende ni accede a fastboot/recovery. En este caso, busca soporte específico del fabricante o comunidades como XDA.
 
-Si tienes TWRP u otro recovery avanzado, puedes restaurar un backup si tenías uno hecho previamente.
+## 2. Intenta acceder a Recovery o Fastboot
 
-3. Elimina el módulo Magisk desde Recovery o con ADB
+- Apaga el dispositivo completamente.
+
+- Mantén pulsadas las teclas específicas de tu modelo (normalmente Vol- + Power para Fastboot, Vol+ + Power para Recovery) hasta que aparezca el menú correspondiente.
+
+- Si tienes TWRP u otro recovery avanzado, puedes restaurar un backup si tenías uno hecho previamente.
+
+## 3. Elimina el módulo Magisk desde Recovery o con ADB
+
 Si el problema fue causado por el módulo:
 
-Opción A: Desde Recovery (TWRP)
+### Opción A: Desde Recovery (TWRP)
 
-Monta el sistema en modo lectura/escritura ("Mount System").
+- Monta el sistema en modo lectura/escritura ("Mount System").
 
-Entra en "Advanced" > "File Manager" o usa la terminal.
+- Entra en "Advanced" > "File Manager" o usa la terminal.
 
-Navega a la ruta y elimina el módulo problemático:
-
-text
+- Navega a la ruta y elimina el módulo problemático:
+```sh
 rm -rf /data/adb/modules/com.batterysaver
-Si no tienes claro qué módulo es el problema, puedes eliminar toda la carpeta de módulos:
+```
 
-text
+- Si no tienes claro qué módulo es el problema, puedes eliminar toda la carpeta de módulos:
+```sh
 rm -rf /data/adb/modules/*
-Reinicia el dispositivo y verifica si arranca correctamente.
+```
 
-Opción B: Desde PC usando ADB y Recovery
+- Reinicia el dispositivo y verifica si arranca correctamente.
 
-Con el móvil en Recovery (y partición /data montada), conecta el móvil al PC.
+### Opción B: Desde PC usando ADB y Recovery
 
-Ejecuta en tu PC:
+- Con el móvil en Recovery (y partición `/data` montada), conecta el móvil al PC.
 
-text
-adb shell
+- Ejecuta en tu PC:
+
+```sh
+- adb shell
 su
 rm -rf /data/adb/modules/com.batterysaver
 exit
-exit
-Si el módulo tiene otro nombre, cambia com.batterysaver por el que corresponda.
+```
 
-4. Si sigue sin arrancar: reinstala el sistema
-Descarga la ROM oficial o una custom ROM compatible desde la web de tu fabricante o de la comunidad.
+- Si el módulo tiene otro nombre, cambia `com.batterysaver` por el que corresponda.
 
-En Fastboot (bootloader desbloqueado):
+## 4. Si sigue sin arrancar: reinstala el sistema
 
-Conecta el móvil al PC.
+- Descarga la ROM oficial o una custom ROM compatible desde la web de tu fabricante o de la comunidad.
 
-Usa el comando fastboot flash para cada partición siguiendo las instrucciones de la ROM descargada.
+- En Fastboot (bootloader desbloqueado):
 
-En Recovery (TWRP): Utiliza la opción "Install" para flashear el archivo ZIP de la ROM.
+  - Conecta el móvil al PC.
 
-Después, reinicia y sigue el proceso de inicio de Android.
+  - Usa el comando `fastboot flash` para cada partición siguiendo las instrucciones de la ROM descargada.
 
-5. Otros recursos y recomendaciones
-Consulta XDA-Developers o foros específicos de tu modelo para métodos de "unbrick" adaptados a tu dispositivo.
+- En Recovery (TWRP): Utiliza la opción "Install" para flashear el archivo ZIP de la ROM.
 
-Mantén siempre copias de seguridad antes de experimentar.
+- Después, reinicia y sigue el proceso de inicio de Android.
 
-Haz pruebas con precaución y documenta los cambios importantes que realices.
+## 5. Otros recursos y recomendaciones
+
+- Consulta XDA-Developers o foros específicos de tu modelo para métodos de "unbrick" adaptados a tu dispositivo.
+
+- Mantén siempre copias de seguridad antes de experimentar.
+
+- Haz pruebas con precaución y documenta los cambios importantes que realices.
+
+
+
