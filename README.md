@@ -4,6 +4,21 @@ Sistema avanzado para dispositivos Android rooteados que activa automáticamente
 
 ***
 
+
+Capturas de pantalla
+A continuación se muestran capturas reales de la aplicación LockScreen Battery Saver en funcionamiento.
+
+Pantalla Principal
+Configuración
+Estadísticas
+Visualización de Logs
+
+
+
+
+
+
+
 ## Tabla de Contenidos
 - [Descripción General](#descripcin-general)
 - [Características Principales](#caracter3sticas-principales)
