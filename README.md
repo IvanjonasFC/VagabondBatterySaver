@@ -69,6 +69,13 @@ El funcionamiento se apoya en una arquitectura modular compuesta por tres partes
    - Cambian el governor y activan/desactivan Battery Saver
    - Generan y mantienen logs accesibles
 
+
+***
+
+## Estructura del Proyecto
+Consulta el diagrama  para localizar rápidamente los componentes principales: scripts, app, documentación y archivos esenciales del sistema.
+
+***
 **Estructura resumida del proyecto:**
 ```text
 LockScreenBatterySaver/
@@ -84,12 +91,7 @@ LockScreenBatterySaver/
      TROUBLESHOOTING.md
 ```
 
-***
 
-## Estructura del Proyecto
-Consulta el diagrama anterior para localizar rápidamente los componentes principales: scripts, app, documentación y archivos esenciales del sistema.
-
-***
 
 ## Requisitos
 - Android 14 o superior
