@@ -173,12 +173,9 @@ Si experimentas errores durante la compilación, instalación o funcionamiento:
 ---
 
 ## 📄 Estructura del Proyecto
-
-```
 LockScreenBatterySaver/
 ├── android_app/
-│   └── app/
-│       └── build/outputs/apk/release/app-release.apk
+│   └── app/build/outputs/apk/release/app-release.apk
 ├── magisk_module/
 │   ├── system/
 │   │   ├── priv-app/BatterySaverToggle/BatterySaverToggle.apk
@@ -186,10 +183,7 @@ LockScreenBatterySaver/
 │   ├── service.d/govbattery.sh
 │   ├── module.prop
 │   └── META-INF/
-│       └── ... (scripts de instalación Magisk)
+│       └── ...
 └── docs/
     └── TROUBLESHOOTING.md
-```
-```
-
 ***
