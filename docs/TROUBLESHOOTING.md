@@ -1,77 +1,118 @@
-Esta guía describe los problemas más comunes que pueden surgir al desplegar LockScreen Battery Saver y cómo solucionarlos. Se basa en la experiencia real de instalación y configuración del módulo Magisk y la app asociada.
+# Guía de Solución de Problemas: LockScreen Battery Saver
 
-1. Error: La app no aparece tras instalar el módulo
-Síntomas: El módulo se instala correctamente en Magisk, pero la app no aparece en el lanzador o no ejecuta su función.
+Esta guía describe los problemas más comunes que pueden surgir al desplegar **LockScreen Battery Saver** y cómo solucionarlos.  
+Se basa en la experiencia real de instalación y configuración del módulo Magisk y la aplicación asociada.
 
-Soluciones:
+---
 
-Verifica que el APK esté exactamente en:
+## ⚠️ 1. Error: La app no aparece tras instalar el módulo
+
+**Síntomas:**  
+El módulo se instala correctamente en Magisk, pero la app no aparece en el lanzador o no ejecuta su función.
+
+### Soluciones
+
+1. Verifica que el archivo APK esté exactamente en:
 
 magisk_module/system/priv-app/BatterySaverToggle/BatterySaverToggle.apk
 
-Asegúrate de que el archivo XML de permisos esté presente y correctamente configurado:
+text
+
+2. Asegúrate de que el archivo XML de permisos esté presente y correctamente configurado:
 
 magisk_module/system/etc/permissions/privapp-permissions-batterysaver.xml
 
-Reinstala el módulo tras limpiar caché Dalvik y reiniciar el dispositivo.
+text
 
-Si usas una ROM personaliza, revisa que admita apps privilegiadas.
+3. Reinstala el módulo tras limpiar la caché Dalvik y reiniciar el dispositivo.  
+4. Si usas una ROM personalizada, revisa que admita **aplicaciones privilegiadas (priv-app)**.
 
-2. Error: Fallo al compilar el módulo por rutas/caracteres
-Síntomas: Al usar comandos con 7-Zip o al copiar archivos, aparecen errores por rutas inválidas o caracteres especiales.
+---
 
-Soluciones:
+## ⚙️ 2. Error: Fallo al compilar el módulo por rutas o caracteres
 
-Utiliza PowerShell en vez de CMD tradicional. El manejo de rutas y caracteres especiales es mucho más robusto en PowerShell.
+**Síntomas:**  
+Al usar 7-Zip o copiar archivos, aparecen errores por rutas inválidas o caracteres especiales en nombres de carpetas o archivos.
 
-Evita espacios y tildes en los nombres de carpetas.
+### Soluciones
 
-Usa el comando recomendado:
+1. Utiliza **PowerShell** en lugar del CMD tradicional.  
+   PowerShell maneja mejor caracteres especiales y espacios en rutas.  
 
-powershell
+2. Evita tildes, espacios o símbolos especiales en los nombres de carpetas y archivos.  
+3. Usa este comando recomendado para empaquetar:
+
 7z a -tzip ../LockScreenBatterySaver-magisk.zip *
-Si tienes rutas largas, acorta los nombres de carpetas y archivos.
-
-3. Error: El módulo no activa el Battery Saver automáticamente
-Síntomas: El módulo se instala y el script parece funcionar, pero no se activa el modo Battery Saver.
-
-Soluciones:
-
-Revisa los logs del script:
 
 text
+
+4. Si las rutas son demasiado largas, acorta los nombres de directorios antes de empaquetar.
+
+---
+
+## 🔋 3. Error: El módulo no activa el Battery Saver automáticamente
+
+**Síntomas:**  
+El módulo se instala correctamente y el script parece ejecutarse, pero el modo Battery Saver no se activa.
+
+### Soluciones
+
+1. Revisa los logs del script:
+
 adb shell tail -f /data/adb/service.d/govbattery.log
-Asegúrate de que el script govbattery.sh tiene permisos ejecutables y su contenido está correcto.
 
-Comprueba que la ROM no esté restringiendo el acceso a ciertas APIs de ahorro de batería.
+text
 
-Verifica que el servicio esté funcionando en segundo plano tras reiniciar.
+2. Comprueba que el archivo `govbattery.sh` tiene permisos ejecutables y su contenido sea correcto.  
+3. Verifica que tu ROM no restrinja el acceso a las APIs de ahorro de batería.  
+4. Tras reiniciar, confirma que el servicio sigue ejecutándose en segundo plano.
 
-4. Error: Permisos insuficientes para cambiar governors o modos de batería
-Síntomas: El log indica "Permission denied" al cambiar governor o activar Battery Saver.
+---
 
-Soluciones:
+## 🔐 4. Error: Permisos insuficientes para cambiar governors o modos de batería
 
-Asegúrate de que el dispositivo está rooteado y tienes la última versión de Magisk.
+**Síntomas:**  
+El log muestra el mensaje `Permission denied` al intentar cambiar el modo Battery Saver o governor de CPU.
 
-Verifica que el módulo tiene permisos de sistema y que la app fue instalada como priv-app.
+### Soluciones
 
-Si el archivo XML de permisos está incompleto, revisa su sintaxis y los permisos declarados (android.permission.DEVICE_POWER, etc.).
+1. Asegúrate de que tu dispositivo esté **rooteado** y ejecutes la última versión de **Magisk**.  
+2. Verifica que el módulo tenga permisos de sistema y la app esté instalada como **priv-app**.  
+3. Si el archivo XML de permisos está incompleto, revisa su sintaxis y agrega permisos como:
 
-Si el script accede a archivos protegidos, asegúrate de que Magisk parcheó correctamente el boot image.
+<permission name="android.permission.DEVICE_POWER" /> <permission name="android.permission.CHANGE_CONFIGURATION" /> ```
+Si el script accede a archivos protegidos, asegúrate de que Magisk haya parcheado correctamente el boot image.
 
-5. Error: El módulo no aparece en la lista de Magisk
-Soluciones:
+🧩 5. Error: El módulo no aparece en la lista de Magisk
+Soluciones
+Verifica que el archivo ZIP se haya empaquetado correctamente.
+Debe contener, al menos, la siguiente estructura:
 
-Verifica que el archivo zip se empaquetó correctamente: revisa la estructura interna del zip (debe tener META-INF y carpetas system, service.d, etc.).
+text
+META-INF/
+system/
+service.d/
+module.prop
+No agregues subcarpetas adicionales dentro del ZIP.
 
-No añadas subcarpetas adicionales dentro del zip.
+Asegúrate de instalarlo mediante la opción “Instalar desde almacenamiento” en Magisk Manager
+(no uses “Descargar” si no estás publicando el módulo).
 
-Usa la opción "Instalar desde almacenamiento" en Magisk Manager, no la opción "Descargar".
+💡 Consejos Generales
+Reinicia siempre el dispositivo tras instalar o actualizar el módulo.
 
-Consejos generales
-Siempre reinicia tras instalar el módulo.
+Comprueba el log generado en:
 
-Comprueba el log generado en /data/adb/service.d/govbattery.log para detalles de funcionamiento.
+text
+/data/adb/service.d/govbattery.log
+para obtener detalles de su ejecución.
 
-Si actualizas la app o el script, compila y empaqueta de nuevo el módulo antes de reinstalar.
+Si actualizas la app o el script, recompila y empaqueta de nuevo el módulo antes de reinstalar.
+
+📄 Ejemplo rápido de empaquetado
+Para referencia, este es el comando completo en PowerShell para generar el ZIP del módulo:
+
+text
+cd "C:\Users\TU_USUARIO\Desktop\LockScreenBatterySaver\magisk_module"
+7z a -tzip ../LockScreenBatterySaver-magisk.zip *
+Esto creará el archivo LockScreenBatterySaver-magisk.zip listo para su instalación desde Magisk Manager.
