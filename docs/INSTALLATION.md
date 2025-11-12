@@ -1,4 +1,4 @@
-```markdown
+``markdown
 # Guía de Instalación Profesional: LockScreen Battery Saver para Android
 
 Bienvenido a la guía profesional de instalación de LockScreen Battery Saver para Android.  
@@ -186,4 +186,4 @@ LockScreenBatterySaver/
 │       └── ...
 └── docs/
     └── TROUBLESHOOTING.md
-***
+
