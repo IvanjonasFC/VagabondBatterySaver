@@ -1,6 +1,6 @@
 # LockScreen Battery Saver
 
-Sistema avanzado para dispositivos Android rooteados que activa automáticamente el modo Battery Saver al bloquear la pantalla y gestiona los governors de la CPU para maximizar el ahorro de energía en standby.
+Modulo Magisk con aplicacion  para dispositivos Android rooteados  que activa automáticamente el modo Battery Saver al bloquear la pantalla y gestiona los governors de la CPU para maximizar el ahorro de energía en standby.
 
 ***
 
@@ -49,7 +49,6 @@ LockScreen Battery Saver está diseñado para superar las restricciones de Andro
 - Integración completa con Magisk mediante un módulo dedicado
 - App instalada como aplicación de sistema (priv-app) para control y revisión de logs
 - Compatible con Android 14 y superior
-- Proceso de instalación seguro usando 7-Zip y PowerShell
 - Logs accesibles para el usuario desde la app
 
 ***
@@ -71,12 +70,8 @@ El funcionamiento se apoya en una arquitectura modular compuesta por tres partes
 
 
 ***
-
 ## Estructura del Proyecto
-Consulta el diagrama  para localizar rápidamente los componentes principales: scripts, app, documentación y archivos esenciales del sistema.
-
 ***
-**Estructura resumida del proyecto:**
 ```mermaid
 flowchart TD
     A[LockScreenBatterySaver]
@@ -107,9 +102,9 @@ flowchart TD
 
 ***
 
-## Instalación (Resumen)
-1. Compila la app con Android Studio y copia el archivo APK a:
-   - `magisk_module/system/priv-app/BatterySaverToggle/BatterySaverToggle.apk`
+## Instalación 
+1. Compila la app con Android Studio y copia el archivo APK dentro de la carpeta:
+   - `magisk_module/system/priv-app/BatterySaverToggle/`
 2. Verifica la presencia de los archivos de permisos y scripts dentro del módulo.
 3. Empaqueta el módulo usando PowerShell y 7-Zip:
    ```powershell
@@ -128,10 +123,6 @@ flowchart TD
 ## Uso
 - Al instalar y reiniciar, el sistema activa el modo Battery Saver y el governor `powersave` automáticamente al bloquear la pantalla, y vuelve al modo `interactive` al desbloquear.
 - Abre la app para revisar logs y ajustar parámetros de configuración.
-- Puedes monitorizar los logs vía terminal:
-  ```
-  adb shell tail -f /data/adb/service.d/govbattery.log
-  ```
 
 ***
 
