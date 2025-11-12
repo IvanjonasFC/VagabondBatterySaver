@@ -174,24 +174,44 @@ Si experimentas errores durante la compilación, instalación o funcionamiento:
    ```
 
 ***
-
-## 📄 Estructura del Proyecto
-
-```text
-LockScreenBatterySaver/
-├── android_app/
-│   └── app/build/outputs/apk/release/app-release.apk
-├── magisk_module/
-│   ├── system/
-│   │   ├── priv-app/BatterySaverToggle/BatterySaverToggle.apk
-│   │   └── etc/permissions/privapp-permissions-batterysaver.xml
-│   ├── service.d/govbattery.sh
-│   ├── module.prop
-│   └── META-INF/
-│       └── ...
-└── docs/
-    └── TROUBLESHOOTING.md
-```
+Aquí tienes tu estructura de proyecto convertida a **Mermaid** para GitHub, utilizando el tipo `flowchart TD` (top-down). Aunque Mermaid no tiene un diagrama específico de árbol de carpetas, esto es totalmente válido y se renderiza correctamente en GitHub:
 
 ***
 
+## 📄 Estructura del Proyecto (Mermaid)
+
+```mermaid
+flowchart TD
+    A[LockScreenBatterySaver/] 
+    A1[android_app/] 
+    A2[magisk_module/] 
+    A3[docs/]
+
+    A --> A1
+    A --> A2
+    A --> A3
+
+    A1 --> B1[app/]
+    B1 --> C1[build/]
+    C1 --> D1[outputs/]
+    D1 --> E1[apk/]
+    E1 --> F1[release/]
+    F1 --> G1[app-release.apk]
+
+    A2 --> B2[system/]
+    B2 --> C2[priv-app/]
+    C2 --> D2[BatterySaverToggle/]
+    D2 --> E2[BatterySaverToggle.apk]
+    B2 --> F2[etc/]
+    F2 --> G2[permissions/]
+    G2 --> H2[privapp-permissions-batterysaver.xml]
+    A2 --> I2[service.d/]
+    I2 --> J2[govbattery.sh]
+    A2 --> K2[module.prop]
+    A2 --> L2[META-INF/]
+    L2 --> M2[...]
+
+    A3 --> B3[TROUBLESHOOTING.md]
+```
+
+***
