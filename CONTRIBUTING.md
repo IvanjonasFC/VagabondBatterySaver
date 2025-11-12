@@ -7,9 +7,9 @@
 1. Haz un fork del repositorio en GitHub.
 
 2. Crea una rama nueva con un nombre descriptivo:
-
-  git checkout -b feature/tu-mejora
-
+````bash
+  git checkout -b feature/"tu-mejora"
+````
   
 3. Realiza tus cambios y haz commits claros y concisos.
 
