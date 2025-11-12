@@ -3,28 +3,28 @@
 # Script de monitorización para Lock Screen Battery Saver
 # Versión 2.0 con sistema de estadísticas para seguimiento de estados y cambios
 
-# Definición de archivos y rutas claves utilizados por el script
-CONFIG_FILE="/data/adb/service.d/govbattery.conf"             # Archivo de configuración
-RELOAD_SIGNAL="/data/adb/service.d/govbattery.reload"         # Archivo señal para recargar configuración
-LOG_FILE="/data/adb/service.d/govbattery.log"                 # Archivo de log principal
-STATE_FILE="/data/adb/service.d/govbattery.state"             # Archivo que guarda estado actual
-STATS_FILE="/data/adb/service.d/govbattery.stats"             # Archivo de estadísticas
-BOOT_DELAY=20                                                 # Retardo inicial para esperar arranque completo
+# Rutas de los archivos
+CONFIG_FILE="/data/adb/service.d/govbattery.conf"             
+RELOAD_SIGNAL="/data/adb/service.d/govbattery.reload"         
+LOG_FILE="/data/adb/service.d/govbattery.log"                 
+STATE_FILE="/data/adb/service.d/govbattery.state"             
+STATS_FILE="/data/adb/service.d/govbattery.stats"            
+BOOT_DELAY=20                                                 
 
-# Función para cargar configuración desde archivo (con valores por defecto)
+# Funcion para cargar los valores por defecto
 load_config() {
-    # Valores por defecto para gobernadores, intervalos y CPUs
+    
     GOV_LOCKED="powersave"
     GOV_UNLOCKED="sched_pixel"
     CHECK_INTERVAL=1
     BATTERY_SAVER_ENABLED=1
     CPU_LIST="0 1 2 3 4 5 6 7 8"
 
-    # Si el archivo de configuración existe, carga los valores personalizados
+    # Si se modifico algo en la appp , cambiarlo 
     if [ -f "$CONFIG_FILE" ]; then
         while IFS='=' read -r key value; do
             case "$key" in
-                \#*|"") continue ;;                       # Ignorar comentarios y líneas vacías
+                \#*|"") continue ;;                       
                 GOV_LOCKED) GOV_LOCKED=$(echo "$value" | tr -d '"' | tr -d ' ') ;;
                 GOV_UNLOCKED) GOV_UNLOCKED=$(echo "$value" | tr -d '"' | tr -d ' ') ;;
                 CHECK_INTERVAL) CHECK_INTERVAL=$(echo "$value" | tr -d ' ') ;;
@@ -35,7 +35,7 @@ load_config() {
     fi
 }
 
-# Función para escribir mensajes en el log principal y truncar si excede 3000 líneas
+# Funcion para los log de mensajes sin que que trunque 3000
 log_message() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" >> "$LOG_FILE" 2>/dev/null
     local line_count=$(wc -l < "$LOG_FILE" 2>/dev/null || echo 0)
@@ -45,7 +45,7 @@ log_message() {
     fi
 }
 
-# Función para registrar cambios de estado y governor en archivo de estadísticas
+# Regristar gobernador y cambios de estado
 log_state_change() {
     local state=$1
     local governor=$2
@@ -54,7 +54,7 @@ log_state_change() {
     # Registro con formato timestamp|estado|governor
     echo "$timestamp|$state|$governor" >> "$STATS_FILE"
     
-    # Mantener solo últimas 2000 líneas (~datos últimos 7 días)
+    # Mantener las ultimas 2000 lineas
     local line_count=$(wc -l < "$STATS_FILE" 2>/dev/null || echo 0)
     if [ "$line_count" -gt 2000 ]; then
         tail -n 2000 "$STATS_FILE" > "${STATS_FILE}.tmp"
@@ -63,7 +63,7 @@ log_state_change() {
     fi
 }
 
-# Función para aplicar un governor dado a los CPUs listados
+# Aplicamos el gobernador
 set_governor() {
     local governor=$1
     for cpu in $CPU_LIST; do
@@ -73,7 +73,7 @@ set_governor() {
     done
 }
 
-# Función para activar o desactivar Battery Saver vía settings global
+# Activar el ahorro de bateria
 set_battery_saver() {
     local state=$1
     if [ "$BATTERY_SAVER_ENABLED" = "1" ]; then
@@ -81,13 +81,13 @@ set_battery_saver() {
     fi
 }
 
-# Función para detectar si la pantalla está bloqueada usando dumpsys
+# Detectamos si la pantalla esta bloqueada o no
 is_screen_locked() {
     dumpsys window | grep -q "mDreamingLockscreen=true"
     return $?
 }
 
-# Función que revisa si existe señal para recargar configuración y la aplica
+# Cambiar los parametros al detectar cambio
 check_reload_signal() {
     if [ -f "$RELOAD_SIGNAL" ]; then
         log_message "🔄 ═══ SEÑAL DE RECARGA DETECTADA ═══"
@@ -99,7 +99,7 @@ check_reload_signal() {
         log_message "   • CPUs: $CPU_LIST"
         log_message "   • Battery Saver: $([ "$BATTERY_SAVER_ENABLED" = "1" ] && echo "SÍ" || echo "NO")"
         
-        # Aplicar configuración inmediatamente según estado actual guardado
+        # Aplicamos las configuraciones 
         if [ "$CURRENT_STATE" = "LOCKED" ]; then
             set_governor "$GOV_LOCKED"
             log_message "✅ Governor actualizado a: $GOV_LOCKED"
@@ -108,22 +108,21 @@ check_reload_signal() {
             log_message "✅ Governor actualizado a: $GOV_UNLOCKED"
         fi
         
-        # Borrar archivo de señal para evitar recargas repetidas
+        #Borramos el archivo para que no quede en bucle
         rm -f "$RELOAD_SIGNAL"
         log_message "🔄 Configuración aplicada exitosamente"
         log_message "════════════════════════════════════════════════"
     fi
 }
 
-# INICIO DEL SCRIPT PRINCIPAL
+#SCRIPT PRINCIPAL
+ # llamada a la carga inicial
+load_config 
 
-load_config  # Carga inicial de configuración
-
-# Detección de dispositivos para información en log
+#  Informacion del dispositivo para las estadiscticas
 DEVICE_MODEL=$(getprop ro.product.model)
 DEVICE_SOC=$(getprop ro.hardware)
 
-# Log de inicio con detalles
 log_message "════════════════════════════════════════════════"
 log_message "🔋 Lock Screen Battery Saver - Iniciado"
 log_message "📱 Versión: 1.5 - Con Sistema de Estadísticas"
@@ -139,11 +138,12 @@ log_message "   • Battery Saver automático: $([ "$BATTERY_SAVER_ENABLED" = "1
 log_message "════════════════════════════════════════════════"
 log_message "⏳ Esperando ${BOOT_DELAY}s para inicialización del sistema..."
 
-sleep $BOOT_DELAY  # Espera para asegurar estabilidad del sistema
+#ESPERAMOS A QUE CARGUE EL SISTEMA
+sleep $BOOT_DELAY  
 
 log_message "🔍 Detectando estado inicial del dispositivo..."
 
-# Detectar estado inicial: bloqueado o desbloqueado
+#Detectamos el estado inicial
 if is_screen_locked; then
     CURRENT_STATE="LOCKED"
     log_message "📊 Estado inicial: BLOQUEADO"
@@ -164,16 +164,17 @@ else
     log_state_change "UNLOCKED" "$GOV_UNLOCKED"
 fi
 
-# Guardar estado en archivo para referencia externa o monitoreo
+# Guardamos el estado actual para las estadisticas
 echo "$CURRENT_STATE" > "$STATE_FILE"
 
 log_message "✨ Monitorización activa - Configuración en tiempo real habilitada"
 log_message "📊 Sistema de estadísticas activado"
 log_message "════════════════════════════════════════════════"
 
-# BUCLE PRINCIPAL: Ejecutar para siempre y reaccionar a cambios de estado
+# BUCLE PRINCIPAL
 while true; do
-    check_reload_signal  # Verificar si hay señal para recargar configuración
+# Verificamos que se cambio algun parametro
+    check_reload_signal  
     
     if is_screen_locked; then
         if [ "$CURRENT_STATE" != "LOCKED" ]; then
@@ -200,6 +201,6 @@ while true; do
             log_state_change "UNLOCKED" "$GOV_UNLOCKED"
         fi
     fi
-    
-    sleep "$CHECK_INTERVAL"  # Esperar el intervalo configurado antes de volver a comprobar
+    # Tiempo de espera para volver a comprobar
+    sleep "$CHECK_INTERVAL"  
 done
