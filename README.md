@@ -77,22 +77,27 @@ Consulta el diagrama  para localizar rápidamente los componentes principales: s
 
 ***
 **Estructura resumida del proyecto:**
-```text
-LockScreenBatterySaver/
-  magisk_module/
-  system/priv-app/BatterySaverToggle/BatterySaverToggle.apk
-  system/etc/permissions/privapp-permissions-batterysaver.xml
-  service.d/govbattery.sh
-  android_app/
-  (proyecto completo de Android Studio)
-  docs/
-     INSTALLATION.md
-     ARCHITECTURE.md
-     TROUBLESHOOTING.md
+```mermaid
+flowchart TD
+    A[LockScreenBatterySaver]
+    A1[magisk_module]
+    A2[android_app]
+    A3[docs]
+
+    A --> A1
+    A --> A2
+    A --> A3
+
+    A1 --> B1[system/priv-app/BatterySaverToggle/BatterySaverToggle.apk]
+    A1 --> B2[system/etc/permissions/privapp-permissions-batterysaver.xml]
+    A1 --> B3[service.d/govbattery.sh]
+
+    A2 --> C1[(proyecto completo de Android Studio)]
+
+    A3 --> D1[INSTALLATION.md]
+    A3 --> D2[ARCHITECTURE.md]
+    A3 --> D3[TROUBLESHOOTING.md]
 ```
-
-
-
 ## Requisitos
 - Android 14 o superior
 - Dispositivo rooteado con Magisk v28+
