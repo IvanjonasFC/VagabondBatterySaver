@@ -57,8 +57,6 @@ Funciona como la capa de integración que permite que app y scripts tengan acces
 
 ## Esquema del Flujo de Trabajo
 
-Si usas Mermaid en GitHub, puedes copiar esto directamente para visualizar el diagrama:
-
 ```mermaid
 flowchart TD
     A[Boot/Inicio sistema]
