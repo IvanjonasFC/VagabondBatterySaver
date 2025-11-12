@@ -178,7 +178,7 @@ Aquí tienes tu estructura de proyecto convertida a **Mermaid** para GitHub, uti
 
 ***
 
-## 📄 Estructura del Proyecto (Mermaid)
+## 📄 Estructura del Proyecto 
 
 ```mermaid
 flowchart TD
