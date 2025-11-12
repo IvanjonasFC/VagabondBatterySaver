@@ -1,85 +1,195 @@
-Bienvenido a la guía profesional de instalación de LockScreen Battery Saver para Android. Sigue estos pasos para compilar, empacar e instalar correctamente el módulo y la app en tu dispositivo.
+```markdown
+# Guía de Instalación Profesional: LockScreen Battery Saver para Android
 
-Requisitos Previos
-Dispositivo Android con root y Magisk instalado (v28 o superior)
+Bienvenido a la guía profesional de instalación de LockScreen Battery Saver para Android.  
+Sigue estos pasos para compilar, empaquetar e instalar correctamente el módulo Magisk y la aplicación en tu dispositivo.
 
-Android 14 o superior
+---
 
-7-Zip instalado y agregado a la variable de entorno (para compilar el módulo)
+## 🧩 Requisitos Previos
 
-PowerShell (Windows 10/11, o usa Terminal integrada en VS Code)
+- Dispositivo Android con root y **Magisk v28 o superior**
+- Android 14 o superior
+- **7-Zip** instalado y agregado a la variable de entorno (para compilar el módulo)
+- **PowerShell** (Windows 10/11, o usa la terminal integrada de VS Code)
+- **Cable USB** y **drivers ADB** instalados
 
-Cable USB y drivers ADB instalados
+---
 
-1. Compilar la Aplicación Android
-Abre tu proyecto Android en Android Studio.
+## ⚙️ 1. Compilar la Aplicación Android
 
-Compila el APK en modo release:
+1. Abre tu proyecto Android en Android Studio.  
+2. Compila el APK en **modo release**:
 
-Ve a Build > Build Bundle(s) / APK(s) > Build APK(s)
+   En Android Studio:  
+   `Build > Build Bundle(s) / APK(s) > Build APK(s)`
 
-El APK generado estará en:
+3. El APK generado estará en la siguiente ruta:
 
-text
+```
 android_app/app/build/outputs/apk/release/app-release.apk
-2. Insertar APK dentro del Módulo Magisk
-Copia el app-release.apk compilado dentro de la ruta:
+```
 
-text
+---
+
+## 📦 2. Insertar el APK dentro del Módulo Magisk
+
+Copia el archivo `app-release.apk` compilado dentro de la estructura del módulo Magisk:
+
+```
 magisk_module/system/priv-app/BatterySaverToggle/BatterySaverToggle.apk
-Verifica que el archivo XML de permisos esté presente:
+```
 
-text
+Verifica que el archivo de permisos XML esté presente:
+
+```
 magisk_module/system/etc/permissions/privapp-permissions-batterysaver.xml
-Comprueba que los scripts y archivos de configuración están correctamente ubicados:
+```
 
-Script principal: magisk_module/service.d/govbattery.sh
+Asegúrate de que los archivos complementarios estén correctamente ubicados:
 
-Archivo module.prop configurado
+```
+# Script principal del módulo
+magisk_module/service.d/govbattery.sh
 
-3. Empaquetar el Módulo Magisk (de forma segura)
-Desde PowerShell (recomendado para evitar errores de rutas/caracteres):
+# Propiedades del módulo
+magisk_module/module.prop
+```
 
-Navega a la carpeta raíz del módulo:
+---
 
-powershell
+## 🧰 3. Empaquetar el Módulo Magisk (de forma segura)
+
+Desde PowerShell (recomendado para evitar errores de rutas o caracteres), navega hasta la carpeta raíz del módulo y empaqueta su contenido.
+
+1. Abre PowerShell y navega al directorio del módulo:
+
+```
 cd "C:\Users\TU_USUARIO\Desktop\LockScreenBatterySaver\magisk_module"
-Empaqueta todo el módulo en un solo archivo .zip usando 7-Zip:
+```
 
-powershell
+2. Usa 7-Zip para empaquetar el módulo completo en un archivo `.zip`:
+
+```
 7z a -tzip ../LockScreenBatterySaver-magisk.zip *
-Esto crea el archivo seguro LockScreenBatterySaver-magisk.zip en la carpeta superior.
+```
 
-4. Transferir el Módulo a tu Dispositivo
-Conecta tu dispositivo Android por USB (con depuración activada).
+Esto crea el archivo:
 
-Usa ADB para transferir el archivo ZIP al almacenamiento del dispositivo:
+```
+C:\Users\TU_USUARIO\Desktop\LockScreenBatterySaver\LockScreenBatterySaver-magisk.zip
+```
 
-text
+El archivo `.zip` resultante estará listo para ser flasheado con Magisk.
+
+---
+
+## 🔄 4. Transferir el Módulo a tu Dispositivo
+
+Conecta el dispositivo Android mediante USB (con la depuración activada).  
+Usa ADB para transferir el archivo ZIP al almacenamiento interno:
+
+```
 adb push ../LockScreenBatterySaver-magisk.zip /sdcard/
-5. Instalar Módulo vía Magisk Manager
-Abre Magisk Manager en tu dispositivo Android.
+```
 
-Pulsa en “Instalar desde almacenamiento” o “Install from storage”.
+Comprueba que el archivo se haya copiado correctamente:
 
-Selecciona el archivo LockScreenBatterySaver-magisk.zip que transferiste.
+```
+adb shell ls /sdcard/ | grep LockScreenBatterySaver
+```
 
-Espera a que finalice la instalación y reinicia el dispositivo cuando lo solicite.
+---
 
-6. Verifica el Funcionamiento
-El módulo se aplicará automáticamente al arrancar.
+## 🧩 5. Instalar el Módulo mediante Magisk Manager
 
-Los logs y configuraciones se pueden visualizar y modificar desde la aplicación Android instalada como app de sistema.
+1. Abre **Magisk Manager** en tu dispositivo Android.  
+2. Pulsa en “Instalar desde almacenamiento” (Install from Storage).  
+3. Selecciona el archivo:
 
-Para ver logs directamente:
+```
+/sdcard/LockScreenBatterySaver-magisk.zip
+```
 
-text
+4. Espera a que finalice la instalación y **reinicia el dispositivo** cuando se te solicite.
+
+---
+
+## 🧪 6. Verificar el Funcionamiento
+
+El módulo se aplicará automáticamente al arrancar el sistema.  
+La app LockScreen Battery Saver se instalará como aplicación de sistema y podrás acceder a su configuración directamente.
+
+Para visualizar logs en tiempo real:
+
+```
 adb shell tail -f /data/adb/service.d/govbattery.log
+```
 
-Notas y Sugerencias
+Si deseas confirmar que el script del módulo se está ejecutando:
 
-No instales la APK por separado: debe instalarse automáticamente como app de sistema por el módulo.
-Para desinstalar, elimina el módulo desde Magisk y reinicia.
+```
+adb shell ps -ef | grep govbattery
+```
 
+Para revisar permisos y ubicación de la app del sistema:
 
-¿Tienes problemas? Consulta docs/TROUBLESHOOTING.md para soluciones y soporte adicional.
+```
+adb shell ls -l /system/priv-app/BatterySaverToggle/
+```
+
+---
+
+## 📘 Notas y Sugerencias
+
+- No instales manualmente el APK; se instalará automáticamente como aplicación del sistema al aplicar el módulo.  
+- Para desinstalar, elimina el módulo desde Magisk y reinicia el dispositivo.  
+- Si modificas scripts o archivos del módulo, vuelve a empaquetarlo y reinstálalo para aplicar los cambios.
+
+---
+
+## ❓ Solución de Problemas
+
+Si experimentas errores durante la compilación, instalación o funcionamiento:
+
+1. Revisa el archivo de registro del módulo:
+
+   ```
+   adb shell cat /data/adb/service.d/govbattery.log
+   ```
+
+2. Verifica los permisos de archivos del módulo:
+
+   ```
+   adb shell ls -l /data/adb/modules/LockScreenBatterySaver/
+   ```
+
+3. Consulta documentación y soluciones en:
+
+   ```
+   docs/TROUBLESHOOTING.md
+   ```
+
+---
+
+## 📄 Estructura del Proyecto
+
+```
+LockScreenBatterySaver/
+├── android_app/
+│   └── app/
+│       └── build/outputs/apk/release/app-release.apk
+├── magisk_module/
+│   ├── system/
+│   │   ├── priv-app/BatterySaverToggle/BatterySaverToggle.apk
+│   │   └── etc/permissions/privapp-permissions-batterysaver.xml
+│   ├── service.d/govbattery.sh
+│   ├── module.prop
+│   └── META-INF/
+│       └── ... (scripts de instalación Magisk)
+└── docs/
+    └── TROUBLESHOOTING.md
+```
+```
+
+***
