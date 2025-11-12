@@ -27,7 +27,7 @@
 
 - Si añades dependencias, justifica su necesidad.
 
-- Revisa y sigue el código de conducta si el repositorio lo tiene.
+- Revisa y comprueba que no se ha perdido la funcionalidad del modulo.
 
 - Tu aporte puede aparecer en el changelog y en futuras versiones públicas.
 
