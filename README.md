@@ -110,7 +110,7 @@ LockScreenBatterySaver/
    ```powershell
    7z a -tzip ../LockScreenBatterySaver-magisk.zip *
    ```
-4. Transfiere el archivo ZIP al teléfono mediante ADB:
+4. Transfiere el archivo ZIP al teléfono medianet o usb o en cambio si quieres hacerlo por ABD, usa este comando:
    ```
    adb push ../LockScreenBatterySaver-magisk.zip /sdcard/
    ```
