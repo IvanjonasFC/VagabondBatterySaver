@@ -1,8 +1,7 @@
 # Recuperación en caso de Brickeo
-
 > **Atención:** Estas instrucciones son una guía general. Asumen que tienes experiencia básica en recuperación de Android, acceso a un ordenador y que tu dispositivo permite desbloqueo o reinstalación por Fastboot o Recovery. Cada modelo puede variar: si tienes dudas, consulta foros o documentación de tu dispositivo.
 
-## 1. Identifica el tipo de brick
+## 1. Identifica el tipo de brick 
 
 - **Bootloop/Soft-brick:** El móvil enciende, pero queda reiniciando o atascado en el logo. Suele permitir entrar a fastboot o recovery.
 
