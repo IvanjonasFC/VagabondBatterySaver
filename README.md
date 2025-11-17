@@ -3,8 +3,6 @@
 Modulo Magisk con aplicacion  para dispositivos Android rooteados  que activa automáticamente el modo Battery Saver al bloquear la pantalla y gestiona los governors de la CPU para maximizar el ahorro de energía en standby.
 
 ***
-
-
 ## Capturas de pantalla
 
 <p align="center">
